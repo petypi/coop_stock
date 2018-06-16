@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="warehouse_matrix">
+            <field name="name">stock.warehouse</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <!--Parent Warehouse: Field-->
+                <field name="name" position="after">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="parent_warehouse_id" placeholder="Parent Warehouse"
+                                   options="{'no_create': True}"/>
+                        </h1>
+                    </div>
+                </field>
+                <!--Products Stocked: Page-->
+                <notebook position="inside">
+                    <page string="Product Matrix">
+                        <group>
+                            <field name="product_ids" options="{'no_create_edit': True}"
+                                   domain="[('sale_ok','=', True)]"/>
+                        </group>
+                    </page>
+                </notebook>
+                <!--make notebook visible Default groups="stock.group_adv_location"-->
+                <notebook position="attributes">
+                    <attribute name="groups"></attribute>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="group_stock_adjustment_copia" model="res.groups">
+            <field name="name">Can Adjust Inventory</field>
+            <field name="comment">This user will be able to adjust stock.
+            </field>
+        </record>
+
+    </data>
+</odoo>
